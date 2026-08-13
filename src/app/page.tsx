@@ -52,15 +52,58 @@ export default function Home() {
     <>
       <Header />
       <main>
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden">
-          {/* soft decorative blooms */}
-          <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-plum-soft/20 blur-3xl" />
-          <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-teal/10 blur-3xl" />
-          <div className="pp-container relative grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
-            <Reveal className="order-2 lg:order-1">
-              <div className="relative mx-auto max-w-sm">
-                <div className="overflow-hidden rounded-[9999px_9999px_16px_16px] border-[6px] border-white shadow-xl">
+        {/* ── Hero (video background) ── */}
+        <section className="relative flex min-h-[92vh] items-center overflow-hidden">
+          {/* background video */}
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/videos/hero-poster.jpg"
+          >
+            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          </video>
+          {/* legibility overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-plum-deep/85 via-plum-deep/55 to-teal-deep/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-plum-deep/70 via-transparent to-plum-deep/20" />
+
+          <div className="pp-container relative grid items-center gap-12 py-20 lg:grid-cols-12 lg:py-28">
+            <div className="order-2 text-center lg:order-1 lg:col-span-7 lg:text-left">
+              <p className="font-display text-lg italic text-blush">Port Moody, BC</p>
+              <h1 className="mt-2 font-display text-4xl leading-tight text-white drop-shadow-sm md:text-6xl">
+                Curated Colour Consulting with Naomi
+              </h1>
+              <p className="mt-5 font-display text-2xl italic text-gold md:text-3xl">
+                Stop guessing, start glowing.
+              </p>
+              <p className="mx-auto mt-6 max-w-lg text-[16px] leading-relaxed text-white/85 lg:mx-0">
+                I&apos;m Naomi Ciarallo, a Coquitlam-based stylist who elevates your
+                style through personalized colour analysis. Discover how the right
+                colours can enhance your natural beauty and transform the way you
+                shop, dress, and feel.
+              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start lg:justify-start">
+                <Link
+                  href="#book"
+                  className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-[15px] font-semibold text-plum-deep shadow-md transition hover:bg-cream"
+                >
+                  Book your analysis
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="#included"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/50 px-8 py-3.5 text-[15px] font-semibold text-white transition hover:bg-white/10"
+                >
+                  What&apos;s included
+                </Link>
+              </div>
+            </div>
+
+            <Reveal className="order-1 lg:order-2 lg:col-span-5">
+              <div className="relative mx-auto max-w-xs">
+                <div className="overflow-hidden rounded-[9999px_9999px_16px_16px] border-[6px] border-white/90 shadow-2xl">
                   <Image
                     src="/images/IMG_5002.jpeg"
                     alt="Naomi Ciarallo, Certified Colour Specialist"
@@ -76,37 +119,6 @@ export default function Home() {
                 </div>
               </div>
             </Reveal>
-
-            <div className="order-1 text-center lg:order-2 lg:text-left">
-              <p className="font-display text-lg italic text-teal">Port Moody, BC</p>
-              <h1 className="mt-2 font-display text-4xl leading-tight text-plum md:text-6xl">
-                Curated Colour Consulting with Naomi
-              </h1>
-              <p className="mt-5 font-display text-2xl italic text-teal md:text-3xl">
-                Stop guessing, start glowing.
-              </p>
-              <p className="mx-auto mt-6 max-w-lg text-[16px] leading-relaxed text-muted lg:mx-0">
-                I&apos;m Naomi Ciarallo, a Coquitlam-based stylist who elevates your
-                style through personalized colour analysis. Discover how the right
-                colours can enhance your natural beauty and transform the way you
-                shop, dress, and feel.
-              </p>
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start lg:justify-start">
-                <Link
-                  href="#book"
-                  className="group inline-flex items-center gap-2 rounded-full bg-plum px-8 py-3.5 text-[15px] font-semibold text-white shadow-md transition hover:bg-plum-deep"
-                >
-                  Book your analysis
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  href="#included"
-                  className="inline-flex items-center gap-2 rounded-full border border-plum/30 px-8 py-3.5 text-[15px] font-semibold text-plum transition hover:bg-plum/5"
-                >
-                  What&apos;s included
-                </Link>
-              </div>
-            </div>
           </div>
         </section>
 
