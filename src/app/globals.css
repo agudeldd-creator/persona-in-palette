@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  /* Persona in Palette — brand palette (plum + teal on soft sage) */
+  --color-plum: #6e5084;
+  --color-plum-deep: #4d3860;
+  --color-plum-soft: #a68cbb;
+  --color-teal: #226663;
+  --color-teal-deep: #184c49;
+  --color-blush: #d9a7b0;
+  --color-gold: #c9a76a;
+
+  --color-sage: #eef3ec;      /* page background */
+  --color-cream: #f8f6f1;
+  --color-mist: #ece6f0;      /* soft plum tint section bg */
+  --color-paper: #ffffff;
+
+  --color-ink: #3a3242;       /* body text */
+  --color-muted: #7c7488;
+
+  --color-background: var(--color-sage);
+  --color-foreground: var(--color-ink);
+
+  --font-display: var(--font-marcellus), ui-serif, Georgia, serif;
+  --font-sans: var(--font-mulish), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-arch: 48% 48% 6px 6px / 60% 60% 6px 6px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.pp-container {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* elegant top arch used for portraits */
+.arch {
+  border-radius: 9999px 9999px 12px 12px;
+}
