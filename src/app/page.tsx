@@ -1,16 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Sparkles,
   Palette,
-  Gem,
-  Shirt,
   Wand2,
   BookOpen,
   Check,
   Mail,
   MapPin,
   ArrowRight,
+  ChevronDown,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Reveal from "@/components/Reveal";
@@ -23,27 +21,46 @@ const Instagram = (p: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const GUIDE = [
-  "Your ideal colour palette",
-  "Your exact best jewelry metals",
-  "Flattering clothing combinations",
-  "62 makeup products (eyeshadow, mascara, lipstick, highlighter, bronzer, blush, eyeliner, nail polish)",
-  "Your best hair colour options to enhance your palette",
+type GuideItem = string | { label: string; children: string[] };
+
+const GUIDE: GuideItem[] = [
+  "100+ Pantone colour matches",
+  "Your best jewelry metals",
+  "Personalized styling recommendations",
+  {
+    label: "62+ makeup products from Sephora",
+    children: [
+      "Eyeshadow",
+      "Mascara",
+      "Lipstick",
+      "Highlighter",
+      "Bronzer",
+      "Blush",
+      "Eyeliner",
+      "Nail polish",
+    ],
+  },
+  "Your best hair colour options",
+  "Nail polish colour recommendations",
+  "Celebrity examples in your season",
+  "Your most flattering gemstones",
+  "A foundation shade guide",
+  "Makeup bag essentials",
 ];
-const WALLET = [
-  "Your unique seasonal colour swatches",
+const WALLET: GuideItem[] = [
+  "36 physical fabric swatches of all your best colours",
+  "Unique swatches of neutrals and colours",
   "Jewelry suggestions that complement your undertone",
   "Additional hair colour ideas",
   "Colour names to help you shop confidently online",
 ];
-const INSIGHT = [
-  "How to tell the difference between cool and warm colours",
+const INSIGHT: GuideItem[] = [
+  "Discover whether your undertone is warm, cool, or neutral and their differences",
   "Which colours are universally flattering (yes, they exist)",
   "Try on fake bang pieces to test hair colours instantly",
   "Explore lipstick assessors to see what works vs. what to avoid",
-  "Spot undertones in clothing and makeup so you stop wasting money",
   "Try your best lipstick shade with samples from MAC",
-  "We go through your makeup bag and tell you what works for your season",
+  "Bring your makeup bag for review and we'll tell you what works for your season",
   "Bonus extended help after your appointment when you're shopping",
 ];
 
@@ -69,22 +86,22 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-plum-deep/85 via-plum-deep/55 to-teal-deep/45" />
           <div className="absolute inset-0 bg-gradient-to-t from-plum-deep/70 via-transparent to-plum-deep/20" />
 
-          <div className="pp-container relative grid items-center gap-12 py-20 lg:grid-cols-12 lg:py-28">
-            <div className="order-2 text-center lg:order-1 lg:col-span-7 lg:text-left">
+          <div className="pp-container relative py-20 lg:py-28">
+            <div className="mx-auto max-w-2xl text-center">
               <p className="font-display text-lg italic text-blush">Port Moody, BC</p>
               <h1 className="mt-2 font-display text-4xl leading-tight text-white drop-shadow-sm md:text-6xl">
                 Curated Colour Consulting with Naomi
               </h1>
-              <p className="mt-5 font-display text-2xl italic text-gold md:text-3xl">
+              <p className="mt-5 font-display text-2xl italic text-blush md:text-3xl">
                 Stop guessing, start glowing.
               </p>
-              <p className="mx-auto mt-6 max-w-lg text-[16px] leading-relaxed text-white/85 lg:mx-0">
-                I&apos;m Naomi Ciarallo, a Coquitlam-based stylist who elevates your
+              <p className="mx-auto mt-6 max-w-lg text-[16px] leading-relaxed text-white/85">
+                I&apos;m Naomi Ciarallo, a Port Moody-based stylist who elevates your
                 style through personalized colour analysis. Discover how the right
                 colours can enhance your natural beauty and transform the way you
                 shop, dress, and feel.
               </p>
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start lg:justify-start">
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="#book"
                   className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-[15px] font-semibold text-plum-deep shadow-md transition hover:bg-cream"
@@ -100,25 +117,6 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-
-            <Reveal className="order-1 lg:order-2 lg:col-span-5">
-              <div className="relative mx-auto max-w-xs">
-                <div className="overflow-hidden rounded-[9999px_9999px_16px_16px] border-[6px] border-white/90 shadow-2xl">
-                  <Image
-                    src="/images/IMG_5002.jpeg"
-                    alt="Naomi Ciarallo, Certified Colour Specialist"
-                    width={600}
-                    height={900}
-                    priority
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-5 -right-4 flex items-center gap-2 rounded-full bg-teal px-5 py-2.5 text-[13px] font-semibold text-white shadow-lg">
-                  <Sparkles className="h-4 w-4" />
-                  Certified Colour Specialist
-                </div>
-              </div>
-            </Reveal>
           </div>
         </section>
 
@@ -195,29 +193,32 @@ export default function Home() {
                     </p>
                     <h3 className="mt-1 font-display text-2xl text-plum">{card.title}</h3>
                     <ul className="mt-5 space-y-3">
-                      {card.items.map((it) => (
-                        <li key={it} className="flex items-start gap-2.5 text-[14px] leading-relaxed text-ink/75">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
-                          {it}
-                        </li>
-                      ))}
+                      {card.items.map((it) =>
+                        typeof it === "string" ? (
+                          <li key={it} className="flex items-start gap-2.5 text-[14px] leading-relaxed text-ink/75">
+                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+                            {it}
+                          </li>
+                        ) : (
+                          <li key={it.label} className="text-[14px] leading-relaxed text-ink/75">
+                            <details className="group/dd">
+                              <summary className="flex cursor-pointer list-none items-start gap-2.5 [&::-webkit-details-marker]:hidden">
+                                <Check className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+                                <span className="flex-1">{it.label}</span>
+                                <ChevronDown className="mt-0.5 h-4 w-4 shrink-0 text-teal/60 transition-transform group-open/dd:rotate-180" />
+                              </summary>
+                              <ul className="mt-2 ml-6 grid grid-cols-2 gap-x-3 gap-y-1.5 text-[13px] text-ink/60">
+                                {it.children.map((c) => (
+                                  <li key={c}>{c}</li>
+                                ))}
+                              </ul>
+                            </details>
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                 </Reveal>
-              ))}
-            </div>
-
-            {/* quick value row */}
-            <div className="mt-12 grid gap-4 sm:grid-cols-3">
-              {[
-                { icon: Gem, t: "Best jewelry metals" },
-                { icon: Shirt, t: "Flattering combinations" },
-                { icon: Sparkles, t: "MAC lipstick match" },
-              ].map((v) => (
-                <div key={v.t} className="flex items-center justify-center gap-3 rounded-2xl bg-mist px-5 py-4 text-center">
-                  <v.icon className="h-5 w-5 text-plum" />
-                  <span className="font-display text-lg text-teal">{v.t}</span>
-                </div>
               ))}
             </div>
           </div>
@@ -229,8 +230,8 @@ export default function Home() {
             <Reveal>
               <div className="overflow-hidden rounded-[9999px_9999px_16px_16px] border-[6px] border-white shadow-xl mx-auto max-w-xs">
                 <Image
-                  src="/images/IMG_4875.jpeg"
-                  alt="Naomi Ciarallo"
+                  src="/images/IMG_5002.jpeg"
+                  alt="Naomi Ciarallo, Certified Colour Specialist"
                   width={500}
                   height={750}
                   className="h-full w-full object-cover"
@@ -242,13 +243,13 @@ export default function Home() {
                 <p className="font-display text-lg italic text-teal">Meet your specialist</p>
                 <h2 className="mt-2 font-display text-4xl text-plum md:text-5xl">Hi, I&apos;m Naomi</h2>
                 <p className="mt-6 text-[16px] leading-relaxed text-ink/80">
-                  Based in Coquitlam, BC, I help clients across the Lower Mainland find
+                  Based in Port Moody, BC, I help clients across the Lower Mainland find
                   the colours that let them shine. Colour analysis changed how I shop,
                   dress, and feel about myself, and I love guiding others to that same
                   clarity and confidence.
                 </p>
                 <p className="mt-4 text-[16px] leading-relaxed text-ink/80">
-                  Every session is warm, unhurried, and completely personalized. You
+                  Every session is thorough, enjoyable, and completely personalized. You
                   leave knowing exactly what works for you and why.
                 </p>
                 <Link
