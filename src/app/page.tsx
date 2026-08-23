@@ -9,6 +9,7 @@ import {
   MapPin,
   ArrowRight,
   ChevronDown,
+  Star,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Reveal from "@/components/Reveal";
@@ -62,6 +63,39 @@ const INSIGHT: GuideItem[] = [
   "Try your best lipstick shade with samples from MAC",
   "Bring your makeup bag for review and we'll tell you what works for your season",
   "Bonus extended help after your appointment when you're shopping",
+];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "I thought I was the moon, but I'm definitely the sun! I had such a wonderful experience with Naomi — the entire process was informative, thoughtful, relaxed and fun.",
+    meta: "Warm Spring · Google Review",
+  },
+  {
+    quote:
+      "The right colours literally made my face light up, and that was with no makeup on!! My only regret is not doing it sooner.",
+    meta: "Google Review",
+  },
+  {
+    quote:
+      "I found out that I was a True Summer rather than the Winter that I thought I was most of my life!",
+    meta: "True Summer · Google Review",
+  },
+  {
+    quote:
+      "I ended up coming back with my best friend the following week and it was another fabulous experience and lifelong memory.",
+    meta: "Google Review",
+  },
+  {
+    quote:
+      "I even got to bring my own makeup to see which products to keep and which ones to skip, super helpful! Absolutely 10/10 recommend.",
+    meta: "Google Review",
+  },
+  {
+    quote:
+      "Since leaving her studio I have a newfound sense of confidence in how to articulate my wardrobe. Well worth it, 5 stars is not enough!",
+    meta: "Google Review",
+  },
 ];
 
 export default function Home() {
@@ -226,40 +260,69 @@ export default function Home() {
 
         {/* ── Meet Naomi ── */}
         <section className="bg-mist py-20 md:py-24">
-          <div className="pp-container grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-            <Reveal>
-              <div className="overflow-hidden rounded-[9999px_9999px_16px_16px] border-[6px] border-white shadow-xl mx-auto max-w-xs">
-                <Image
-                  src="/images/IMG_5002.jpeg"
-                  alt="Naomi Ciarallo, Certified Colour Specialist"
-                  width={500}
-                  height={750}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </Reveal>
-            <div>
+          <div className="pp-container">
+            <div className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
               <Reveal>
-                <p className="font-display text-lg italic text-teal">Meet your specialist</p>
-                <h2 className="mt-2 font-display text-4xl text-plum md:text-5xl">Hi, I&apos;m Naomi</h2>
-                <p className="mt-6 text-[16px] leading-relaxed text-ink/80">
-                  Based in Port Moody, BC, I help clients across the Lower Mainland find
-                  the colours that let them shine. Colour analysis changed how I shop,
-                  dress, and feel about myself, and I love guiding others to that same
-                  clarity and confidence.
-                </p>
-                <p className="mt-4 text-[16px] leading-relaxed text-ink/80">
-                  Every session is thorough, enjoyable, and completely personalized. You
-                  leave knowing exactly what works for you and why.
-                </p>
-                <Link
-                  href="#book"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-teal px-8 py-3.5 text-[15px] font-semibold text-white shadow-md transition hover:bg-teal-deep"
-                >
-                  Book your session
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <div className="overflow-hidden rounded-[9999px_9999px_16px_16px] border-[6px] border-white shadow-xl mx-auto max-w-xs">
+                  <Image
+                    src="/images/IMG_5002.jpeg"
+                    alt="Naomi Ciarallo, Certified Colour Specialist"
+                    width={500}
+                    height={750}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </Reveal>
+              <div>
+                <Reveal>
+                  <p className="font-display text-lg italic text-teal">Meet your specialist</p>
+                  <h2 className="mt-2 font-display text-4xl text-plum md:text-5xl">Hi, I&apos;m Naomi</h2>
+                  <p className="mt-6 text-[16px] leading-relaxed text-ink/80">
+                    Based in Port Moody, BC, I help clients across the Lower Mainland find
+                    the colours that let them shine. Colour analysis changed how I shop,
+                    dress, and feel about myself, and I love guiding others to that same
+                    clarity and confidence.
+                  </p>
+                  <p className="mt-4 text-[16px] leading-relaxed text-ink/80">
+                    Every session is thorough, enjoyable, and completely personalized. You
+                    leave knowing exactly what works for you and why.
+                  </p>
+                  <Link
+                    href="#book"
+                    className="mt-8 inline-flex items-center gap-2 rounded-full bg-teal px-8 py-3.5 text-[15px] font-semibold text-white shadow-md transition hover:bg-teal-deep"
+                  >
+                    Book your session
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Reveal>
+              </div>
+            </div>
+
+            {/* testimonial strip */}
+            <Reveal>
+              <p className="mt-20 text-center font-display text-lg italic text-teal">
+                In their own words
+              </p>
+            </Reveal>
+            <div className="mt-6 -mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:mx-0 sm:px-0">
+              {TESTIMONIALS.map((t) => (
+                <figure
+                  key={t.quote}
+                  className="flex w-[280px] shrink-0 snap-start flex-col rounded-2xl border border-plum/10 bg-white p-6 shadow-sm sm:w-[320px]"
+                >
+                  <div className="flex gap-0.5 text-gold">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <blockquote className="mt-4 flex-1 text-[14px] leading-relaxed text-ink/80">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-5 text-[12px] font-semibold uppercase tracking-[0.1em] text-muted">
+                    {t.meta}
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </section>
@@ -275,7 +338,13 @@ export default function Home() {
             <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
               {["IMG_4081.png", "IMG_4089.png", "IMG_4095.png", "IMG_4096.png"].map((img, i) => (
                 <Reveal key={img} delay={i * 0.08}>
-                  <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-sm">
+                  <a
+                    href="https://www.instagram.com/persona_in_palette/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Persona in Palette on Instagram"
+                    className="group relative block aspect-[3/4] overflow-hidden rounded-2xl shadow-sm"
+                  >
                     <Image
                       src={`/images/${img}`}
                       alt="Persona in Palette colour analysis"
@@ -285,7 +354,7 @@ export default function Home() {
                     <div className="absolute inset-0 flex items-center justify-center bg-plum/0 opacity-0 transition group-hover:bg-plum/30 group-hover:opacity-100">
                       <Instagram className="h-8 w-8 text-white" />
                     </div>
-                  </div>
+                  </a>
                 </Reveal>
               ))}
             </div>
@@ -334,8 +403,13 @@ export default function Home() {
             <p className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-blush" /> Port Moody, BC, Canada
             </p>
-            <a href="#" className="flex items-center gap-2 transition hover:text-white">
-              <Instagram className="h-4 w-4 text-blush" /> @persona.in.palette
+            <a
+              href="https://www.instagram.com/persona_in_palette/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition hover:text-white"
+            >
+              <Instagram className="h-4 w-4 text-blush" /> @persona_in_palette
             </a>
           </div>
           <div className="flex flex-col gap-2 text-[14px] md:items-end">
